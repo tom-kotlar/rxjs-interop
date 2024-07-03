@@ -7,7 +7,7 @@ import { debounceTime, distinctUntilChanged, filter, startWith, switchMap } from
 @Component({
   selector: 'app-people',
   standalone: true,
-  imports: [NgIf, AsyncPipe, JsonPipe, NgFor, ReactiveFormsModule, KeyValuePipe],
+  imports: [NgIf, AsyncPipe, NgFor, ReactiveFormsModule],
   templateUrl: './people.component.html',
   styleUrl: './people.component.scss',
 
