@@ -30,7 +30,6 @@ export class PeopleComponent {
   character$ = this.search$
     .pipe(
       switchMap((serchedCharacter: string | null) => {
-        console.log(serchedCharacter, "????")
         return this.swapiService.searchCharacter(serchedCharacter)
       })
     )
