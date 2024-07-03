@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SwapiService } from '../swapi.service';
-import { AsyncPipe, JsonPipe, KeyValuePipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, startWith, switchMap } from 'rxjs';
 
