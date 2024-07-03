@@ -1,0 +1,20 @@
+<input [formControl]="searchControl" placeholder="Search for Chatacter" class="search-input">
+
+@if (character$ | async; as characters) {
+
+<p>{{characters.results.length}} from {{ characters.count }}</p>
+
+@if (characters.results.length > 0) {
+@for (character of characters.results; track character) {
+<div class="result-card">
+  {{ character.name }}
+</div>
+}
+} @else {
+<div>
+  🙈 No results found for your search
+</div>
+}
+} @else {
+<div> 😵‍💫 Loading..</div>
+}
