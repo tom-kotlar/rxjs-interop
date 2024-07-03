@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { SwapiService } from '../swapi.service';
+import { SwapiData, SwapiService } from '../swapi.service';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, startWith, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, Observable, startWith, switchMap } from 'rxjs';
+import { toSignal, toObservable } from '@angular/core/rxjs-interop'
 
 @Component({
   selector: 'app-people',
@@ -19,18 +20,20 @@ export class PeopleComponent {
 
   constructor(private swapiService: SwapiService) { }
 
-  search$ = this.searchControl.valueChanges
+  search = toSignal(this.searchControl.valueChanges
     .pipe(
       startWith(''),
       filter(() => this.searchControl.valid || this.searchControl.value === ''),
       debounceTime(500),
       distinctUntilChanged(),
-    )
+    ), { initialValue: '' })
 
-  character$ = this.search$
+  character$: Observable<SwapiData> = toObservable(this.search)
     .pipe(
       switchMap((serchedCharacter: string | null) => {
         return this.swapiService.searchCharacter(serchedCharacter)
       })
     )
 }
+
+
