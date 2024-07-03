@@ -1,20 +1,18 @@
-<input [formControl]="searchControl" placeholder="Search for Chatacter" class="search-input">
+@if (characters().count != undefined) {
+  <input [formControl]="searchControl" placeholder="Search for people" class="search-input" />
 
-@if (character$ | async; as characters) {
+  <p>{{ totalResults() }} from {{ totalPeople() }}</p>
 
-<p>{{characters.results.length}} from {{ characters.count }}</p>
+  @if(totalResults() > 0) {
 
-@if (characters.results.length > 0) {
-@for (character of characters.results; track character) {
-<div class="result-card">
-  {{ character.name }}
-</div>
-}
+    @for (character of characters().results; track character.name) {
+      <div class="result-card">
+        {{ character.name }}
+      </div>
+    }
+  } @else {
+    <div> 🙈 No results found for your search</div>
+  }
 } @else {
-<div>
-  🙈 No results found for your search
-</div>
-}
-} @else {
-<div> 😵‍💫 Loading..</div>
+  <div> 😵‍💫 Loading...</div>
 }
