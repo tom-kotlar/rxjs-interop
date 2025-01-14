@@ -1,6 +1,5 @@
-import { Component, computed } from '@angular/core';
+import { Component,inject, computed } from '@angular/core';
 import { SwapiData, SwapiService } from '../swapi.service';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, Observable, startWith, switchMap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop'
@@ -8,7 +7,7 @@ import { toSignal } from '@angular/core/rxjs-interop'
 @Component({
   selector: 'app-people',
   standalone: true,
-  imports: [NgIf, AsyncPipe, NgFor, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './people.component.html',
   styleUrl: './people.component.scss',
 
@@ -16,9 +15,8 @@ import { toSignal } from '@angular/core/rxjs-interop'
 })
 export class PeopleComponent {
 
-  searchControl = new FormControl<string>('', [Validators.required, Validators.minLength(2)]);
-
-  constructor(private swapiService: SwapiService) { }
+  searchControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  swapiService = inject(SwapiService)
 
   search = this.searchControl.valueChanges
     .pipe(
