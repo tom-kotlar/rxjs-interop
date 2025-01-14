@@ -1,18 +1,15 @@
-@if (characters().count != undefined) {
-  <input [formControl]="searchControl" placeholder="Search for people" class="search-input" />
+<input [formControl]="searchControl" placeholder="Search for people" class="search-input" />
 
-  <p>{{ totalResults() }} from {{ totalPeople() }}</p>
+<p>{{ totalResults() }} from {{ totalPeople() }}</p>
 
-  @if(totalResults() > 0) {
-
-    @for (character of characters().results; track character.name) {
-      <div class="result-card">
-        {{ character.name }}
-      </div>
-    }
-  } @else {
-    <div> 🙈 No results found for your search</div>
+@if (characters().count === undefined) {
+  <p> 😵‍💫 Loading...</p>
+} @else if (totalResults() > 0) {
+  @for (character of characters().results; track character.name) {
+    <div class="result-card">
+      {{ character.name }}
+    </div>
   }
 } @else {
-  <div> 😵‍💫 Loading...</div>
+  <p> 🙈 No results found for your search</p>
 }
