@@ -2,19 +2,18 @@
 
 @if (character$ | async; as characters) {
 
-<p>{{characters.results.length}} from {{ characters.count }}</p>
+ <p>{{characters.results.length}} from {{ characters.count }}</p>
 
-@if (characters.results.length > 0) {
-@for (character of characters.results; track character) {
-<div class="result-card">
-  {{ character.name }}
-</div>
-}
+ @if (characters.results.length > 0) {
+
+    @for (character of characters.results; track character) {
+      <div class="result-card">
+        {{ character.name }}
+      </div>
+    }
+  } @else {
+    <p>🙈 No results found for your search</p>
+  }
 } @else {
-<div>
-  🙈 No results found for your search
-</div>
-}
-} @else {
-<div> 😵‍💫 Loading..</div>
+  <p> 😵‍💫 Loading..</p>
 }
